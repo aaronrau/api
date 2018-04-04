@@ -16,10 +16,10 @@ const 	MongoClient = require('mongodb').MongoClient,
 var PARAMS = require('../utils/params.js')();
 
 //Application specific configuration
-var CONFIG = require('../configs/dev.js');
+var CONFIG = require('../configs/development.js');
 if(PARAMS.IsProduction){
   //console.log("-=[PROD]=-")
-    CONFIG = require('../configs/prod.js');
+    CONFIG = require('../configs/production.js');
 }
 else
 {
@@ -36,7 +36,7 @@ function DB(callback){
 
 	// https://mongodb.github.io/node-mongodb-native/driver-articles/mongoclient.html 
 	//connection pooling;
-	MongoClient.connect(CONFIG.MONGODB.CONNECTIONSTRING, function(err, client) {
+	MongoClient.connect(CONFIG.MONGODB.CONNECTION_STRING, function(err, client) {
 		console.log("connecting to mongodb");
 		if(err){
 		  	console.error(err);
@@ -46,7 +46,7 @@ function DB(callback){
 		}
 
 
-		MONGODB = client.db(CONFIG.MONGODB.DEFAULTDB); //AR: need to move this later
+		MONGODB = client.db(CONFIG.MONGODB.DEFAULT_DB); //AR: need to move this later
 
 		callback(MONGODB)
 

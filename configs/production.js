@@ -7,7 +7,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-//AR: Make sure you add this to your git ignore if testing locally.
+//AR: Deployment script will pull the correct config, this is just a placeholder.
 var config = {
 	"AWS":{
 		"SECRET_KEY":"",
@@ -19,28 +19,28 @@ var config = {
 		"BASE":""
 	},
 	"MONGODB":{
-		"CONNECTIONSTRING":"mongodb://user:password@localhost:27017/default",
-		"DEFAULTDB":"default"
+		"CONNECTION_STRING":"mongodb://user:password@localhost:27017/default",
+		"DEFAULT_DB":"default"
 	},
 	"REDIS":"redis://localhost:6379",
 	"REDIS_AUTH":null,
 	"OAUTH":{
 		"google":{
-		    "ClientId":"",
+		    "CLIENT_ID":"",
 		    "CLIENT_SECRET":""
 			},
 		"facebook":{
-		      "AppId":"",
-		      "AppSecrect":""
+		      "APP_ID":"",
+		      "APP_SECRET":""
 			},
 		"twitter":{
-			    "ConsumerKey":"",
-			    "ConsumerSecret":""
+			    "CONSUMER_KEY":"",
+			    "CONSUMER_SECRET":""
 			}
 	},
 	"SENDGRID":{
-		"Key":"",
-		"Secret":""
+		"KEY":"",
+		"SECRET":""
 	}
 
 };

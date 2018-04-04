@@ -14,10 +14,10 @@ var PARAMS = require('../utils/params.js')(),
 	URL = PARAMS.URL;
 
 //Application specific configuration
-var CONFIG = require('../configs/dev.js');
+var CONFIG = require('../configs/development.js');
 if(PARAMS.IsProduction){
   //console.log("-=[PROD]=-")
-    CONFIG = require('../configs/prod.js');
+    CONFIG = require('../configs/production.js');
 }
 else
 {
@@ -43,7 +43,7 @@ var OAuthCallBackHandler = function(req, res, authedData){
 var SOURCES = {
   google: new Google({
     PEM:CONFIG.OAUTH.google.PEM,
-    ClientId:CONFIG.OAUTH.google.ClientId,
+    CLIENT_ID:CONFIG.OAUTH.google.CLIENT_ID,
     CLIENT_SECRET:CONFIG.OAUTH.google.CLIENT_SECRET,
     AppCallBackURL:URL+"/auth/google/callback",
     },OAuthCallBackHandler,OAuthErrorHandler)

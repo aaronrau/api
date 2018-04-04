@@ -25,7 +25,7 @@ var GoogleSource = function(config,callbackHandler,callbackErrorHandler){
 	var GOOGLE_JSONPEM = config.PEM
 
 
-	var GOOGLE_CLIENT_ID = config.ClientId; 
+	var GOOGLE_CLIENT_ID = config.CLIENT_ID; 
 	var GOOGLE_CLIENT_SECRET = config.CLIENT_SECRET; 
 	var GOOGLE_REDIRECT_URL = config.AppCallBackURL; 
 
