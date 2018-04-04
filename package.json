@@ -1,0 +1,37 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "description": "backend =============",
+  "main": "app.js",
+  "dependencies": {
+    "async": "^1.5.2",
+    "cookie-parser": "^1.4.3",
+    "cookieparser": "^0.1.0",
+    "express": "^4.16.1",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.11.2",
+    "googleapis": "^27.0.0",
+    "hat": "0.0.3",
+    "moment": "^2.20.1",
+    "moment-timezone": "^0.5.14",
+    "mongodb": "^3.0.4",
+    "shortid": "^2.2.8"
+  },
+  "scripts": {
+    "dev": "nodemon --harmony --inspect server.js",
+    "start": "node server.js",
+    "prod": "node server.js --production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aaronrau/backend"
+  },
+  "license": "MIT",
+  "author": "Aaron Rau",
+  "bugs": {
+    "url": "https://github.com/aaronrau/backend/issues"
+  },
+  "engines": {
+    "node": "8.9.x"
+  }
+}
