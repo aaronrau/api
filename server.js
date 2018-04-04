@@ -20,6 +20,7 @@ var express = require('express'),
 var errors = require('./controllers/errors.js'),
 	api = require('./controllers/api.js'),
   oauth = require('./controllers/oauth.js'),
+  user = require('./controllers/user.js'),
 	security = require('./controllers/security.js'),
   DB = require('./utils/datacontext.js');
 
@@ -45,9 +46,12 @@ app.use('/css', express.static(__dirname+'/public/css'));
 app.use('/images', express.static(__dirname+'/public/images'));
 
 app.use('/auth',oauth.handler);
+app.use('/login',user.handleLogin);
+app.use('/signup',user.handleLogin);
 
 //setup sub apps
 app.use('/api',api);
+
 
 //setup error handling
 app.use(errors.missingPage);

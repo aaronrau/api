@@ -10,6 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 var Buffer = require('buffer').Buffer
     ,rack = require('hat').rack()
     ,shortid = require('shortid')
+    ,qs = require('querystring');
 
 var _DB = require('../utils/datacontext.js');
 
@@ -122,6 +123,13 @@ var _this = {
     });
 
 	},
+  login:function(params,callback) //login or signup email
+  {
+    callback(false);
+  },
+  forgot:function(params,callback){ //fogot email
+
+  },
 	logout:function(user,callback){
 
 	},
@@ -167,6 +175,59 @@ var _this = {
 
 
 	},
+  handleLogin:function(req,res,next)
+  {
+    
+
+    if(req.method == 'GET')
+    {
+      res.render('login',{});
+    }
+    else //post / put
+    {
+      //https://stackoverflow.com/questions/4295782/how-do-you-extract-post-data-in-node-js
+      var queryData = ""
+      req.on('data', function(data) {
+          queryData += data;
+          if(queryData.length > 1e6) {
+              queryData = "";
+              //res.writeHead(413, {'Content-Type': 'text/plain'}).end();
+              res.render('login',{});
+              req.connection.destroy();
+          }
+      });
+
+      req.on('end', function() {
+          var data = qs.parse(queryData);
+              query = req.query;
+          
+          console.log(data);
+          console.log(query);
+
+          _this.login(data,function(authData){
+
+            if(!authData)
+            {
+              res.render('login',{error:"unable to login"});
+            }
+            else
+            {
+              if(query.callback){
+                res.redirect(query.callback+'?code='+authData.code); //send to local auth handler
+              }
+              else{
+                res.render('login',{});
+              }
+            }
+          })
+
+          
+      });
+    }
+
+    
+
+  },
 	handleOAuthResponse:function(req,res,oauthdata){
 		res.render('access',{auth:oauthdata});
 	},
