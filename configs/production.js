@@ -9,6 +9,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 //AR: Deployment script will pull the correct config, this is just a placeholder.
 var config = {
+	"USER":{
+		"PASSWORD_HASH_SECRET":"test"
+	},
 	"AWS":{
 		"SECRET_KEY":"",
 		"ACCESS_KEY_ID":"",

@@ -1,6 +1,6 @@
 <body>
 
-{{#if isLogin}}
+{{#if isModeLogin}}
 
 	{{#if isComplete}}
 		Login Success
@@ -12,13 +12,11 @@
 	    <input type="submit" value="Submit">
 		</form>
 
-		{{#if error}}
-			{{error}}
-		{{/if}}
+
 	{{/if}}
 {{/if}}
 
-{{#if isForgot}}
+{{#if isModeForgot}}
 	<form method="post" action="">
 	    <input type="tel" name="mobile">
 	    <input type="text" name="email">
@@ -26,11 +24,15 @@
 	</form>
 {{/if}}
 
-{{#if isReset}}
+{{#if isModeReset}}
 	<form method="post" action="">
 	    <input type="password" name="password">
 	    <input type="submit" value="Submit">
 	</form>
+{{/if}}
+
+{{#if error}}
+	{{error}}
 {{/if}}
 
 </body>

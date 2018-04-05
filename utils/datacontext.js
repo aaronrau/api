@@ -58,6 +58,9 @@ function save(type,obj,callback){
     if(!obj._id)
     	obj._id = shortid.generate();
 
+    if(obj.password)
+   		delete obj.password; //#security never save the actual password
+
     console.log("saving object to MongoDB:"+type+" "+obj._id ? obj._id : "")
     var c = MONGODB.collection(type);
 
