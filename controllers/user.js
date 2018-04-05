@@ -10,6 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 var Buffer = require('buffer').Buffer
     ,rack = require('hat').rack()
     ,shortid = require('shortid')
+    ,titleCase = require('title-case')
     ,qs = require('querystring');
 
 var _DB = require('../utils/datacontext.js');
@@ -123,15 +124,18 @@ var _this = {
     });
 
 	},
+  reset:function(params,callback){
+    callback(false);
+  },
   login:function(params,callback) //login or signup email
   {
     callback(false);
   },
-  forgot:function(params,callback){ //fogot email
-
+  forgot:function(params,callback){ //forgot email
+    callback(false);
   },
 	logout:function(user,callback){
-
+    callback(false);
 	},
 	update:function(params,callback){
     //assume security was already checked
@@ -175,15 +179,30 @@ var _this = {
 
 
 	},
+  getTokenByRequestCode:function(code,callback)
+  {
+
+  },
+//Request / Route handlers here
   handleLogin:function(req,res,next)
   {
+    var ps = req.path.split('/');
     
-
-    if(req.method == 'GET')
+    //render ui, map login paths to handlebars parameters ie /login/forgot > {isForgot:true}
+    if(req.method == 'GET') 
     {
-      res.render('login',{});
+      if(ps[1].length > 1)
+      {
+        var params = {};
+        params["is"+titleCase(ps[1])] = true;
+        res.render('login',params);
+      }
+      else
+      {
+        res.render('login',{isLogin:true});
+      }
     }
-    else //post / put
+    else if(req.method == 'POST' || req.method == 'PUT') //post / put
     {
       //https://stackoverflow.com/questions/4295782/how-do-you-extract-post-data-in-node-js
       var queryData = ""
@@ -204,28 +223,50 @@ var _this = {
           console.log(data);
           console.log(query);
 
-          _this.login(data,function(authData){
+          if(ps[1].length > 1)
+          {
+            var params = {};
+            params["is"+titleCase(ps[1])] = true;
+            params["isComplete"] = true;
+            
 
-            if(!authData)
+            if(_this[ps[1].toLowerCase()])
             {
-              res.render('login',{error:"unable to login"});
+              _this[ps[1]](data,function(){
+                res.render('login',params);
+              });
             }
             else
             {
-              if(query.callback){
-                res.redirect(query.callback+'?code='+authData.code); //send to local auth handler
-              }
-              else{
-                res.render('login',{});
-              }
+              res.render('login',params);
             }
-          })
+          }
+          else
+          {
+            _this.login(data,function(authData){
 
+              if(!authData)
+              {
+                res.render('login',{isLogin:true,error:"unable to login"});
+              }
+              else
+              {
+                if(query.callback){ //oauth //api
+                  res.redirect(query.callback+'?code='+authData.code); //send to local auth handler
+                }
+                else{
+                  res.render('login',{isLogin:true,isComplete:true,auth:authData});
+                }
+              }
+            })
+          }
           
       });
     }
-
-    
+    else
+    {
+      res.send({});
+    }
 
   },
 	handleOAuthResponse:function(req,res,oauthdata){

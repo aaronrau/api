@@ -7,7 +7,8 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-var Google = require('../oauth/google.js'); //AR: hard code this for now
+var Google = require('../oauth/google.js'), //AR: hard code this for now
+	LocalAuth = require('../oauth/local.js');
 
 var PARAMS = require('../utils/params.js')(),
 	port = PARAMS.PORT,
@@ -46,7 +47,12 @@ var SOURCES = {
     CLIENT_ID:CONFIG.OAUTH.google.CLIENT_ID,
     CLIENT_SECRET:CONFIG.OAUTH.google.CLIENT_SECRET,
     AppCallBackURL:URL+"/auth/google/callback",
-    },OAuthCallBackHandler,OAuthErrorHandler)
+    },OAuthCallBackHandler,OAuthErrorHandler),
+  local: new LocalAuth({
+    CLIENT_ID:"TBD",
+    CLIENT_SECRET:"TBD",
+  	AppCallBackURL:URL+"/auth/local/callback",
+  },OAuthCallBackHandler,OAuthErrorHandler)
 }
 
 

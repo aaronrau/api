@@ -1,9 +1,36 @@
 <body>
 
-<form method="post" action="">
-    <input type="tel" name="mobile">
-    <input type="text" name="email">
-    <input type="password" name="password">
-    <input type="submit" value="Submit">
-</form>
+{{#if isLogin}}
+
+	{{#if isComplete}}
+		Login Success
+	{{else}}
+		<form method="post" action="">
+	    <input type="tel" name="mobile">
+	    <input type="text" name="email">
+	    <input type="password" name="password">
+	    <input type="submit" value="Submit">
+		</form>
+
+		{{#if error}}
+			{{error}}
+		{{/if}}
+	{{/if}}
+{{/if}}
+
+{{#if isForgot}}
+	<form method="post" action="">
+	    <input type="tel" name="mobile">
+	    <input type="text" name="email">
+	    <input type="submit" value="Submit">
+	</form>
+{{/if}}
+
+{{#if isReset}}
+	<form method="post" action="">
+	    <input type="password" name="password">
+	    <input type="submit" value="Submit">
+	</form>
+{{/if}}
+
 </body>
