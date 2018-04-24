@@ -1,38 +1,102 @@
-<body>
-
+<body >
+<header><span class="logo">Company</span><span class="version">(Early ALPHA v0.1)</span></header>
 {{#if isModeLogin}}
 
 	{{#if isComplete}}
-		Login Success
-	{{else}}
-		<form method="post" action="">
-	    <input type="tel" name="mobile">
-	    <input type="text" name="email">
-	    <input type="password" name="password">
-	    <input type="submit" value="Submit">
+		<form class="login">
+		
+		{{#if auth.token}}
+		<script>
+			setCookie("session_token","{{auth.token}}");
+			setTimeout(function(){window.location = "/"},200)
+		</script>
+		<h1>Logging in...</h1>
+		{{else}}
+		<h1>Something went wrong, invalid token</h1>
+		{{/if}}
+		
+		
 		</form>
+	{{else}}
+		{{#if isModeLogout}}
+		<script>
+			setCookie("session_token",null);
+			setTimeout(function(){window.location = "/login"},200)
+			
+		</script>
+		{{/if}}
+
+		<form class="login" method="post" action="">
+		<h1>Sign in or create an account</h1>
+	    <input type="text" name="email" placeholder="email address"/>
+	    <input type="password" placeholder="password"  name="password"/>
+	   	{{#if error}}
+	    <h4 class="error">{{error}}</h4>
+	    {{/if}}
+	    <input type="submit" value="Sign in"/>
+	    <a class="btforgot" href="/login/forgot">Forgot your password?</a>
+
+	    <hr/>
+	    <h4>New to Company?</h4>
+	    <a class="button btnewaccount" href="/signup">Create an account?</a>
+		</form>
+
 
 
 	{{/if}}
 {{/if}}
 
 {{#if isModeForgot}}
-	<form method="post" action="">
-	    <input type="tel" name="mobile">
-	    <input type="text" name="email">
-	    <input type="submit" value="Submit">
+	{{#if isComplete}}
+	<form class="login" method="post" action="">
+		<h1>Reset Your Password </h1>
+		<p>Your email is on the way. The email link will expire in 30 minutes. </p>
 	</form>
+	{{else}}
+	<form class="login" method="post" action="">
+		<h1>Reset Your Password </h1>
+		<p>We'll email you a link to make a brand new password. </p>
+	    <input type="text" name="email" placeholder="email address"/>
+	    <input type="submit" value="Submit"/>
+	</form>
+	{{/if}}
+
+
+	{{#if error}}
+		{{error}}
+	{{/if}}
 {{/if}}
 
 {{#if isModeReset}}
-	<form method="post" action="">
-	    <input type="password" name="password">
-	    <input type="submit" value="Submit">
-	</form>
+
+
+	{{#if isComplete}}
+		<form class="login">
+		
+		{{#if auth.token}}
+		<script>
+			document.cookie = "session_token={{auth.token}}";
+			setTimeout(function(){window.location = "/"},200)
+		</script>
+		<h1>Logging in...</h1>
+		{{else}}
+		<h1>Something went wrong, invalid token</h1>
+		{{/if}}
+		
+		
+		</form>
+	{{else}}
+		<form class="login" method="post" action="">
+			<h1>Create a new password</h1>
+		    <input type="password" name="password" placeholder="new password"/>
+		    <input type="submit" value="Submit"/>
+		</form>
+	{{/if}}
+
+	{{#if error}}
+		{{error}}
+	{{/if}}
 {{/if}}
 
-{{#if error}}
-	{{error}}
-{{/if}}
 
 </body>
