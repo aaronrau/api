@@ -138,7 +138,7 @@ function find(type,query,callback){
         console.error(ex);
       }
 
-	if(c)
+	if(c && query)
 	{
 	 //$orderby is deprecated use sort instead
 		if(query["$orderby"])
@@ -149,12 +149,10 @@ function find(type,query,callback){
 		  var ps = query["$orderby"],
 		  	sp = ps.split('|');
 
-
-			if((sp.length > 1 ? sp[1] : "-1") == "-1")
+		  	if((sp.length > 1 ? sp[1] : "-1") == "-1")
 				sortParams.push([sp[0],'descending']);
 			else
 				sortParams.push([sp[0],'ascending']);
-		  
 
 
 		  	delete query["$orderby"];

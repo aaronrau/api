@@ -32,7 +32,7 @@ var _DB = require('../utils/datacontext.js'),
 var OAuthCallBackHandler = function(req, res, authedData){
 
 		UserController.oauth(authedData,function(authedDataWithSessionToken){
-	    	UserController.handleOAuthResponse(req, res,authedDataWithSessionToken);
+	    	UserController.handle('OAuthResponse')(req, res,authedDataWithSessionToken);
 	    });
 
 	}

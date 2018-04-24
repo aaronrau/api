@@ -46,8 +46,9 @@ app.use('/css', express.static(__dirname+'/public/css'));
 app.use('/images', express.static(__dirname+'/public/images'));
 
 app.use('/auth',oauth.handler);
-app.use('/login',user.handleLogin);
-app.use('/signup',user.handleLogin);
+app.use('/login',user.handle('Login'));
+app.use('/logout',user.handle('Logout'));
+app.use('/signup',user.handle('Signup'));
 
 //setup sub apps
 app.use('/api',api);
